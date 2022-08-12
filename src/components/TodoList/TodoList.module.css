@@ -1,0 +1,18 @@
+.row2 {
+    display: flex;
+    margin-bottom: 5px;
+}
+.row1 {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 70px;
+}
+.input {
+    width: 80%;
+    color: red;
+    border-color: yellow !important;
+}
+.list {
+    margin-top: 50px;
+    background-color: grey;
+}
