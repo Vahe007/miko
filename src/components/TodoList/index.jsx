@@ -27,7 +27,7 @@ const TodoList = () => {
     dispatch(getAllTasks(data));
   }, [])
 
-  const { row1, row2, row3, input, add, list } = styles;
+  const { row1, row2, row3, input, add, list, empty, row1_empty, row2_empty } = styles;
 
   const initialValues = {
     newTask: "",
@@ -72,7 +72,7 @@ const TodoList = () => {
           <FormControlLabel
             onChange={onCompletedChange}
             value="end"
-            control={<Checkbox sx={{color: '#1976d2'}} />}
+            control={<Checkbox sx={{ color: '#1976d2' }} />}
             label="Hide completed"
           />
         </FormGroup>
@@ -85,11 +85,15 @@ const TodoList = () => {
         <Button className={add} sx={{ ml: '35px', maxHeight: '55px' }} type='submit' variant="contained">Add</Button>
       </Box>
 
-      <div className={list}>
-        {tasks.length ? (isCompletedShown ? tasks : incompleteTasks).map((task) => (
+      {tasks.length ? <div className={list}>
+        {(isCompletedShown ? tasks : incompleteTasks).map((task) => (
           <TodoItem key={uuid()} task={task} setTasks={() => { }} tasks={tasks} />
-        )) : 'So start by adding your tasks here.'}
-      </div>
+        ))}
+      </div> : <div className={empty}>
+        <div className={row1_empty}>Your life is a blank page. You write on it.</div>
+        <div className={row2_empty}>So start by adding your tasks here.</div>
+      </div>}
+
 
     </div>
   )

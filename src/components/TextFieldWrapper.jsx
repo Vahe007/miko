@@ -13,7 +13,7 @@ const TextFieldWrapper = (props) => {
         variant: 'outlined'
     };
 
-    if (touched && error) {
+    if (error) {
         configTextField.error = true;
         configTextField.helperText = error;
     }
