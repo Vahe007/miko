@@ -21,8 +21,8 @@ const tasks = createSlice({
             state.tasks = payload;
             state.incompleteTasks = payload.filter((item) => !item.completed);
         },
-        updateTask: (state, {payload}) => {
-            const {completed, id, title} = payload;
+        updateTask: (state, { payload }) => {
+            const { completed, id, title } = payload;
             let pos;
             state.tasks.forEach((el, index) => {
                 if (el.id === id) {
@@ -39,11 +39,11 @@ const tasks = createSlice({
             localStorage.setItem('tasks', JSON.stringify(state.tasks));
         },
         addTask: (state, { payload }) => {
-            state.tasks = [...state.tasks, payload];
+            state.tasks = [payload, ...state.tasks];
             state.incompleteTasks = state.tasks.filter((item) => !item.completed);
             localStorage.setItem('tasks', JSON.stringify(state.tasks));
         },
-        deleteTask: (state, {payload}) => {
+        deleteTask: (state, { payload }) => {
             const remainingData = state.tasks.filter((task) => task.id !== payload);
             state.tasks = remainingData;
             state.incompleteTasks = state.tasks.filter((item) => !item.completed);

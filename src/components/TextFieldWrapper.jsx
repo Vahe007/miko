@@ -1,10 +1,9 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import { useField } from "formik";
 
 
 const TextFieldWrapper = (props) => {
-    const { name, error, touched, message, ...otherProps } = props;
+    const { name, error, touched, message, inputRef, ...otherProps } = props;
     
     const configTextField = {
         name,
@@ -24,6 +23,7 @@ const TextFieldWrapper = (props) => {
 
     return (
         <TextField 
+        ref={inputRef}
         {...configTextField} />
     )
 }

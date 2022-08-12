@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import TodoItem from '../TodoItem'
 import Button from '@mui/material/Button'
 import styles from "./TodoList.module.css";
@@ -13,19 +13,32 @@ import { getAllTasks } from '../../features/todos/todosSlice';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Checkbox } from '@mui/material';
+import ButtonWrapper from '../Button';
+import CloseIcon from '@mui/icons-material/Close';
+
+
 
 
 const TodoList = () => {
   const [isCompletedShown, setCompletedShown] = useState(true);
+  const inputRef = useRef(null);
+  const [isInputFocused, setInputFocused] = useState(false);
+
 
   const tasks = useSelector(get_All_Tasks);
   const incompleteTasks = useSelector(getIncompleteTasks);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('tasks'));
+    const data = JSON.parse(localStorage.getItem('tasks')) || [];
     dispatch(getAllTasks(data));
   }, [])
+
+  const isFocused = (inputRef?.current?.children[1]?.children[0] === document.activeElement);
+
+  useEffect(() => {
+    setInputFocused(isFocused);
+  }, [isFocused])
 
   const { row1, row2, row3, input, add, list, empty, row1_empty, row2_empty } = styles;
 
@@ -58,7 +71,11 @@ const TodoList = () => {
     error: formik.errors.newTask,
     touched: formik.touched.newTask,
     onBlur: formik.handleBlur,
-    variant: 'outlined'
+    variant: 'outlined',
+    onClick: () => {setInputFocused(true)},
+    sx: {
+      width: '80%',
+    }
   };
 
   const onCompletedChange = ({ target: { checked } }) => {
@@ -68,21 +85,23 @@ const TodoList = () => {
   return (
     <div>
       <div className={row1}>
-        <FormGroup aria-label="position" row>
-          <FormControlLabel
-            onChange={onCompletedChange}
-            value="end"
-            control={<Checkbox sx={{ color: '#1976d2' }} />}
-            label="Hide completed"
-          />
+        <FormGroup sx={{display: 'flex', alignItems: 'center'}} row >
+          <Checkbox onChange={onCompletedChange} sx={{ color: '#1976d2', fontWeight: 700}} />
+          <span style={{fontWeight: 700, textAlign: 'center', fontSize: '20px'}}>Hide completed</span>
         </FormGroup>
       </div>
       <div className={row2}>
         <span style={{ fontSize: '19px' }}>Task</span>
       </div>
       <Box component="form" className={row2} onSubmit={formik.handleSubmit}>
-        <TextFieldWrapper className={input} {...textFieldProps} />
-        <Button className={add} sx={{ ml: '35px', maxHeight: '55px' }} type='submit' variant="contained">Add</Button>
+        <TextFieldWrapper inputRef={inputRef} InputProps={{
+          endAdornment: isFocused ? (
+            <CloseIcon
+              sx={{ cursor: "pointer" }}
+            />) : null
+        }} {...textFieldProps} />
+        <ButtonWrapper type='submit' title="Add" style={{ marginLeft: '35px' }} />
+        {/* <Button size='large' sx={{ ml: '35px', maxHeight: '55px' }} type='submit' variant="contained">Add</Button> */}
       </Box>
 
       {tasks.length ? <div className={list}>
