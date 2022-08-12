@@ -10,7 +10,6 @@ import { Box } from '@mui/material';
 const TodoItem = ({ task }) => {
   const [isShown, setShown] = useState(false);
   const dispatch = useDispatch();
-  const tasks = useSelector(get_All_Tasks);
   const { row } = styles;
   const { title, completed, id } = task;
 
@@ -34,7 +33,6 @@ const TodoItem = ({ task }) => {
     <>
       <div className={row}>
         {isShown && <MainDialog {...dialogProps} />}
-
         <Box>
           <Checkbox sx={{ color: '#1976d2' }} onChange={handleChange} defaultChecked={completed} />
           <span style={{ opacity: completed ? .4 : .8, marginLeft: '35px' }}>{title}</span>

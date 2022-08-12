@@ -98,6 +98,7 @@ const TodoList = () => {
           endAdornment: isFocused ? (
             <CloseIcon
               sx={{ cursor: "pointer" }}
+              onClick={(e) => {console.log('ok'); e.stopPropagation()}}
             />) : null
         }} {...textFieldProps} />
         <ButtonWrapper type='submit' title="Add" style={{ marginLeft: '35px' }} />

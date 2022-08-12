@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    height: 63px;
+    max-height: 63px;
     margin-bottom: 1.2px;
     font-size: 19px;
     padding: 10px 0;
