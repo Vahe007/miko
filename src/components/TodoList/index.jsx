@@ -35,11 +35,11 @@ const TodoList = () => {
     dispatch(getAllTasks(data));
   }, [])
 
-  const isFocused = (inputRef?.current?.children[1]?.children[0] === document.activeElement);
+  // const isFocused = (inputRef?.current?.children[1]?.children[0] === document.activeElement);
 
-  useEffect(() => {
-    setInputFocused(isFocused);
-  }, [isFocused])
+  // useEffect(() => {
+  //   setInputFocused(isFocused);
+  // }, [isFocused])
 
   const { row1, row2, row3, input, add, list, empty, row1_empty, row2_empty } = styles;
 
@@ -81,7 +81,6 @@ const TodoList = () => {
   const onCompletedChange = ({ target: { checked } }) => {
     setCompletedShown(!checked);
   }
-  console.log('a');
   return (
     <div>
       <div className={row1}>
