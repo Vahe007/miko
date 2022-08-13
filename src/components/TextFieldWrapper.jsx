@@ -16,10 +16,10 @@ const TextFieldWrapper = (props) => {
         configTextField.error = true;
         configTextField.helperText = error;
     }
-    if (message) {
-        configTextField.error = true;
-        configTextField.helperText = message;
-    }
+    // if (message) {
+    //     configTextField.error = true;
+    //     configTextField.helperText = message;
+    // }
 
     return (
         <TextField 

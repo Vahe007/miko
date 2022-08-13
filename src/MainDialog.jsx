@@ -9,7 +9,7 @@ const MainDialog = (props) => {
             <Dialog
                 open
                 sx={{
-                    paddingTop: '0px'
+                    paddingTop: '10px',
                 }}
                 onClose={onClose}
             >
@@ -23,7 +23,7 @@ const MainDialog = (props) => {
                     {content}
                 </DialogContent>
 
-                <DialogActions>
+                <DialogActions sx={{margin: '0 auto'}}>
                     <Button sx={{color: 'black'}} onClick={onConfirm} disabled={disabled || false}>Yes</Button>
                     <Button sx={{color: 'black'}} onClick={onClose} autoFocus>
                         No

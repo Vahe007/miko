@@ -23,6 +23,7 @@ const TodoList = () => {
   const [isCompletedShown, setCompletedShown] = useState(true);
   const inputRef = useRef(null);
   const [isInputFocused, setInputFocused] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
 
   const tasks = useSelector(get_All_Tasks);
@@ -70,9 +71,8 @@ const TodoList = () => {
     value: formik.values.newTask,
     error: formik.errors.newTask,
     touched: formik.touched.newTask,
-    onBlur: formik.handleBlur,
+    // onBlur: formik.handleBlur,
     variant: 'outlined',
-    onClick: () => {setInputFocused(true)},
     sx: {
       width: '80%',
     }
@@ -81,25 +81,26 @@ const TodoList = () => {
   const onCompletedChange = ({ target: { checked } }) => {
     setCompletedShown(!checked);
   }
-
+  console.log('a');
   return (
     <div>
       <div className={row1}>
-        <FormGroup sx={{display: 'flex', alignItems: 'center'}} row >
-          <Checkbox onChange={onCompletedChange} sx={{ color: '#1976d2', fontWeight: 700}} />
-          <span style={{fontWeight: 700, textAlign: 'center', fontSize: '20px'}}>Hide completed</span>
+        <FormGroup sx={{ display: 'flex', alignItems: 'center' }} row >
+          <Checkbox onChange={onCompletedChange} sx={{ color: '#1976d2', fontWeight: 700 }} />
+          <span style={{ fontWeight: 700, textAlign: 'center', fontSize: '20px' }}>Hide completed</span>
         </FormGroup>
       </div>
       <div className={row2}>
         <span style={{ fontSize: '19px' }}>Task</span>
       </div>
       <Box component="form" className={row2} onSubmit={formik.handleSubmit}>
-        <TextFieldWrapper inputRef={inputRef} InputProps={{
-          endAdornment: isFocused ? (
+        <TextFieldWrapper  onFocus={() => setInputFocused(true)} onBlur={() => setInputFocused(false)} InputProps={{
+          endAdornment: isInputFocused ? (
             <CloseIcon
               sx={{ cursor: "pointer" }}
-              onClick={(e) => {console.log('ok'); e.stopPropagation()}}
+              onClick={() => {return console.log('oooooo');}}
             />) : null
+
         }} {...textFieldProps} />
         <ButtonWrapper type='submit' title="Add" style={{ marginLeft: '35px' }} />
         {/* <Button size='large' sx={{ ml: '35px', maxHeight: '55px' }} type='submit' variant="contained">Add</Button> */}
